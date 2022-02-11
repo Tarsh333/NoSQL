@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Loading from './Loading'
 import Modal from './Modal'
 const App = () => {
     const [turns, setTurns] = useState(2)
@@ -7,11 +8,40 @@ const App = () => {
     const [rotating, setRotating] = useState(false)
     const [mounted, setMounted] = useState(false)
     const [scores, setScores] = useState([])
-    const addScore = (name, score) => {
-        setScores((prev) => {
-            return ([...prev, { id: Date.now(), name: name, score: score }])
+    const [loading, setLoading] = useState(true)
+    const setData=async(data)=>{
+        const res=await fetch('http://localhost:5000/',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            body:JSON.stringify({scores:data})
         })
+        const result=await res.json()
+        // console.log(result);
     }
+    const addScore = (name, score) => {
+        const id=Date.now()
+        const tempScores=[...scores, { id: id, name: name, score: score }]
+        tempScores.sort((a, b) => {
+            return b.score - a.score;
+        });
+        setData(tempScores)
+        setScores(tempScores)
+    }
+    const getData=async()=>{
+       const res= await fetch('http://localhost:5000/')
+        const result=await res.json()
+        if (result.scores!==null) {
+            setScores(result.scores)
+        }
+        // console.log(result);
+        setLoading(false)
+    }
+    useEffect(() => {
+      getData()
+    }, [])
+    
     useEffect(() => {
         setMounted(true)
     }, [])
@@ -65,7 +95,6 @@ const App = () => {
                     }
                     setTurns(2)
                     setScore(0)
-                    //  console.log(name);
                 }
             }, 5000);
         }
@@ -123,7 +152,7 @@ const App = () => {
                         Score: {score}
                     </div>
                 </div>
-                <Modal scores={scores} />
+                {loading?<Loading/>:<Modal scores={scores} />}
             </div>
         </div>
     )

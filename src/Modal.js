@@ -11,7 +11,7 @@ const Modal = ({ scores }) => {
                         <td> {score.name}</td>
                         <td> {score.score}</td>
                     </tr>)
-                }) : <tr className='full-tr'><td colspan="3"><h2 align="center">No scores to show</h2></td></tr>}
+                }) : <tr className='full-tr'><td colSpan="3"><h2 align="center">No scores to show</h2></td></tr>}
                 </table>
             </div>
             
