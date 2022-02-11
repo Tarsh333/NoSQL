@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Loading from './Loading'
 import Modal from './Modal'
 const App = () => {
-    const [turns, setTurns] = useState(2)
+    const [turns, setTurns] = useState(1)
     const [rotated, setRotated] = useState(0)
     const [score, setScore] = useState(0)
     const [rotating, setRotating] = useState(false)
@@ -26,8 +26,8 @@ const App = () => {
         tempScores.sort((a, b) => {
             return b.score - a.score;
         });
-        setData(tempScores)
-        setScores(tempScores)
+        setData(tempScores.slice(0,10))
+        setScores(tempScores.slice(0,10))
     }
     const getData=async()=>{
        const res= await fetch('http://localhost:5000/')
@@ -93,7 +93,7 @@ const App = () => {
                     if (name !== null) {
                         addScore(name, tempscore)
                     }
-                    setTurns(2)
+                    setTurns(1)
                     setScore(0)
                 }
             }, 5000);

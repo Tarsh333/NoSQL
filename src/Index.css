@@ -8,7 +8,6 @@
 body {
   font-family: Open Sans;
   min-height: 100vh;
-  overflow: hidden;
   /* background: rgb(60,60,242); */
   /* background: linear-gradient(90deg, rgba(60,60,242,1) 0%, rgba(98,245,230,1) 52%, rgba(60,60,242,1) 100%); */
   background-size: cover;
@@ -164,17 +163,20 @@ span b {
 td,
 th {
   font-size: 22px;
-  padding: 15px;
+  padding: 25px;
+  
 }
 svg {
   color: goldenrod;
 }
 table {
   border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  
 }
 .container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-evenly;
   margin-top: 20px;
 }
@@ -183,4 +185,18 @@ table h2{
 }
 .full-tr{
     width: 100%;
+}
+thead tr{
+  background-color: #001AFF;
+    color: #ffffff;
+    text-align: left;
+}
+tbody tr{
+  border-bottom: 1px solid #dddddd;
+}
+
+.leaderboard{
+  max-height: 600px;
+  overflow: auto;
+  border-bottom: 4px solid #001AFF;
 }
